@@ -1,0 +1,180 @@
+.main-header
+  .main-header-logo
+    .logo-header(data-background-color='dark')
+      a.logo(href='/admin/dashboard')
+        img.navbar-brand(src=`${prefixAdmin}/assets/img/kaiadmin/logo_light.svg` alt='navbar brand' height='20')
+      .nav-toggle
+        button.btn.btn-toggle.toggle-sidebar
+          i.gg-menu-right
+        button.btn.btn-toggle.sidenav-toggler
+          i.gg-menu-left
+      button.topbar-toggler.more
+        i.gg-more-vertical-alt
+  nav.navbar.navbar-header.navbar-header-transparent.navbar-expand-lg.border-bottom
+    .container-fluid
+      nav.navbar.navbar-header-left.navbar-expand-lg.navbar-form.nav-search.p-0.d-none.d-lg-flex
+        .input-group
+          .input-group-prepend
+            button.btn.btn-search.pe-1(type='submit')
+              i.fa.fa-search.search-icon
+          input.form-control(type='text' placeholder='Search ...')
+      ul.navbar-nav.topbar-nav.ms-md-auto.align-items-center
+        li.nav-item.topbar-icon.dropdown.hidden-caret.d-flex.d-lg-none
+          a.nav-link.dropdown-toggle(data-bs-toggle='dropdown' href='#' role='button' aria-expanded='false' aria-haspopup='true')
+            i.fa.fa-search
+          ul.dropdown-menu.dropdown-search.animated.fadeIn
+            form.navbar-left.navbar-form.nav-search
+              .input-group
+                input.form-control(type='text' placeholder='Search ...')
+        li.nav-item.topbar-icon.dropdown.hidden-caret
+          a#messageDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+            i.fa.fa-envelope
+          ul.dropdown-menu.messages-notif-box.animated.fadeIn(aria-labelledby='messageDropdown')
+            li
+              .dropdown-title.d-flex.justify-content-between.align-items-center
+                | Messages
+                a.small(href='#') Mark all as read
+            li
+              .message-notif-scroll.scrollbar-outer
+                .notif-center
+                  a(href='#')
+                    .notif-img
+                      img(src=`${prefixAdmin}/assets/img/jm_denis.jpg` alt='Img Profile')
+                    .notif-content
+                      span.subject Jimmy Denis
+                      span.block  How are you ?
+                      span.time 5 minutes ago
+                  a(href='#')
+                    .notif-img
+                      img(src=`${prefixAdmin}/assets/img/chadengle.jpg` alt='Img Profile')
+                    .notif-content
+                      span.subject Chad
+                      span.block  Ok, Thanks !
+                      span.time 12 minutes ago
+                  a(href='#')
+                    .notif-img
+                      img(src=`${prefixAdmin}/assets/img/mlane.jpg` alt='Img Profile')
+                    .notif-content
+                      span.subject Jhon Doe
+                      span.block
+                        | Ready for the meeting today...
+                      span.time 12 minutes ago
+                  a(href='#')
+                    .notif-img
+                      img(src=`${prefixAdmin}/assets/img/talha.jpg` alt='Img Profile')
+                    .notif-content
+                      span.subject Talha
+                      span.block  Hi, Apa Kabar ?
+                      span.time 17 minutes ago
+            li
+              a.see-all(href='javascript:void(0);')
+                | See all messages
+                i.fa.fa-angle-right
+        li.nav-item.topbar-icon.dropdown.hidden-caret
+          a#notifDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+            i.fa.fa-bell
+            span.notification 4
+          ul.dropdown-menu.notif-box.animated.fadeIn(aria-labelledby='notifDropdown')
+            li
+              .dropdown-title
+                | You have 4 new notification
+            li
+              .notif-scroll.scrollbar-outer
+                .notif-center
+                  a(href='#')
+                    .notif-icon.notif-primary
+                      i.fa.fa-user-plus
+                    .notif-content
+                      span.block  New user registered
+                      span.time 5 minutes ago
+                  a(href='#')
+                    .notif-icon.notif-success
+                      i.fa.fa-comment
+                    .notif-content
+                      span.block
+                        | Rahmad commented on Admin
+                      span.time 12 minutes ago
+                  a(href='#')
+                    .notif-img
+                      img(src=`${prefixAdmin}/assets/img/profile2.jpg` alt='Img Profile')
+                    .notif-content
+                      span.block
+                        | Reza send messages to you
+                      span.time 12 minutes ago
+                  a(href='#')
+                    .notif-icon.notif-danger
+                      i.fa.fa-heart
+                    .notif-content
+                      span.block  Farrah liked Admin
+                      span.time 17 minutes ago
+            li
+              a.see-all(href='javascript:void(0);')
+                | See all notifications
+                i.fa.fa-angle-right
+        li.nav-item.topbar-icon.dropdown.hidden-caret
+          a.nav-link(data-bs-toggle='dropdown' href='#' aria-expanded='false')
+            i.fas.fa-layer-group
+          .dropdown-menu.quick-actions.animated.fadeIn
+            .quick-actions-header
+              span.title.mb-1 Quick Actions
+              span.subtitle.op-7 Shortcuts
+            .quick-actions-scroll.scrollbar-outer
+              .quick-actions-items
+                .row.m-0
+                  a.col-6.col-md-4.p-0(href='#')
+                    .quick-actions-item
+                      .avatar-item.bg-danger.rounded-circle
+                        i.far.fa-calendar-alt
+                      span.text Calendar
+                  a.col-6.col-md-4.p-0(href='#')
+                    .quick-actions-item
+                      .avatar-item.bg-warning.rounded-circle
+                        i.fas.fa-map
+                      span.text Maps
+                  a.col-6.col-md-4.p-0(href='#')
+                    .quick-actions-item
+                      .avatar-item.bg-info.rounded-circle
+                        i.fas.fa-file-excel
+                      span.text Reports
+                  a.col-6.col-md-4.p-0(href='#')
+                    .quick-actions-item
+                      .avatar-item.bg-success.rounded-circle
+                        i.fas.fa-envelope
+                      span.text Emails
+                  a.col-6.col-md-4.p-0(href='#')
+                    .quick-actions-item
+                      .avatar-item.bg-primary.rounded-circle
+                        i.fas.fa-file-invoice-dollar
+                      span.text Invoice
+                  a.col-6.col-md-4.p-0(href='#')
+                    .quick-actions-item
+                      .avatar-item.bg-secondary.rounded-circle
+                        i.fas.fa-credit-card
+                      span.text Payments
+        li.nav-item.topbar-user.dropdown.hidden-caret
+          a.dropdown-toggle.profile-pic(data-bs-toggle='dropdown' href='#' aria-expanded='false')
+            .avatar-sm
+              img.avatar-img.rounded-circle(src=`${prefixAdmin}/assets/img/profile.jpg` alt='...')
+            span.profile-username
+              span.op-7 Hi,
+              span.fw-bold Hizrian
+          ul.dropdown-menu.dropdown-user.animated.fadeIn
+            .dropdown-user-scroll.scrollbar-outer
+              li
+                .user-box
+                  .avatar-lg
+                    img.avatar-img.rounded(src=`${prefixAdmin}/assets/img/profile.jpg` alt='image profile')
+                  .u-text
+                    h4 Hizrian
+                    p.text-muted hello@example.com
+                    a.btn.btn-xs.btn-secondary.btn-sm(href='profile.html') View Profile
+              li
+                .dropdown-divider
+                a.dropdown-item(href='#') My Profile
+                a.dropdown-item(href='#') My Balance
+                a.dropdown-item(href='#') Inbox
+                .dropdown-divider
+                a.dropdown-item(href='#') Account Setting
+                .dropdown-divider
+                a.dropdown-item(href='#') Logout
+  // End Navbar

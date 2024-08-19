@@ -1,0 +1,3 @@
+mixin filter-status(filterStatus)
+    each item in filterStatus
+        button.dropdown-item(class =`btn btn-sm btn-outline ${item.class}` button-status = item.status) #{item.name}

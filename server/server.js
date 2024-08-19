@@ -1,7 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 5000;
+const routeAdmin = require('./routes/admin/index.route');
+const systemConfig = require("./config/system");
+const database = require("./config/database");
+database.connect();
+const port = process.env.PORT;
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.use(express.static(`${__dirname}/public`));
+app.set("views", `${__dirname}/views`);
+app.set("view engine", "pug");
+//Route
+routeAdmin(app);
 
 // Enable CORS to allow requests from the frontend
 app.use(cors());

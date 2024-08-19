@@ -1,0 +1,210 @@
+extends ../../layouts/default.pug
+
+block main
+    .page-inner
+        .d-flex.align-items-left.align-items-md-center.flex-column.flex-md-row.pt-2.pb-4
+            div
+                h3.fw-bold.mb-3 Dashboard
+            .ms-md-auto.py-2.py-md-0
+                a.btn.btn-label-info.btn-round.me-2(href='#') Manage
+                a.btn.btn-primary.btn-round(href='#') Add Customer
+        .row
+            .col-sm-6.col-md-3
+                .card.card-stats.card-round
+                    .card-body
+                        .row.align-items-center
+                            .col-icon
+                                .icon-big.text-center.icon-primary.bubble-shadow-small
+                                    i.fas.fa-users
+                            .col.col-stats.ms-3.ms-sm-0
+                                .numbers
+                                    p.card-category Visitors
+                                    h4.card-title 1,294
+            .col-sm-6.col-md-3
+                .card.card-stats.card-round
+                    .card-body
+                        .row.align-items-center
+                            .col-icon
+                                .icon-big.text-center.icon-info.bubble-shadow-small
+                                    i.fas.fa-user-check
+                            .col.col-stats.ms-3.ms-sm-0
+                                .numbers
+                                    p.card-category Subscribers
+                                    h4.card-title 1303
+            .col-sm-6.col-md-3
+                .card.card-stats.card-round
+                    .card-body
+                        .row.align-items-center
+                            .col-icon
+                                .icon-big.text-center.icon-success.bubble-shadow-small
+                                    i.fas.fa-luggage-cart
+                            .col.col-stats.ms-3.ms-sm-0
+                                .numbers
+                                    p.card-category Sales
+                                    h4.card-title $ 1,345
+            .col-sm-6.col-md-3
+                .card.card-stats.card-round
+                    .card-body
+                        .row.align-items-center
+                            .col-icon
+                                .icon-big.text-center.icon-secondary.bubble-shadow-small
+                                    i.far.fa-check-circle
+                            .col.col-stats.ms-3.ms-sm-0
+                                .numbers
+                                    p.card-category Order
+                                    h4.card-title 576
+        .row
+            .col-md-8
+                .card.card-round
+                    .card-header
+                        .card-head-row
+                            .card-title User Statistics
+                            .card-tools
+                                a.btn.btn-label-success.btn-round.btn-sm.me-2(href='#')
+                                    span.btn-label
+                                        i.fa.fa-pencil
+                                        |                         Export
+                                a.btn.btn-label-info.btn-round.btn-sm(href='#')
+                                    span.btn-label
+                                        i.fa.fa-print
+                                        |                         Print
+                    .card-body
+                        .chart-container(style='min-height: 375px')
+                            canvas#statisticsChart
+                        #myChartLegend
+            .col-md-4
+                .card.card-primary.card-round
+                    .card-header
+                        .card-head-row
+                            .card-title Daily Sales
+                            .card-tools
+                                .dropdown
+                                    button#dropdownMenuButton.btn.btn-sm.btn-label-light.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                                        | Export
+                                    .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                                        a.dropdown-item(href='#') Action
+                                        a.dropdown-item(href='#') Another action
+                                        a.dropdown-item(href='#') Something else here
+                        .card-category March 25 - April 02
+                            .card-body.pb-0
+                                .mb-4.mt-2
+                                    h1 $4,578.58
+                                .pull-in
+                                    canvas#dailySalesChart
+                .card.card-round
+                    .card-body.pb-0
+                        .h1.fw-bold.float-end.text-primary +5%
+                        h2.mb-2 17
+                        p.text-muted Users online
+                        .pull-in.sparkline-fix
+                            #lineChart
+
+        .row
+            .col-md-4
+                .card.card-round
+                    .card-body
+                        .card-head-row.card-tools-still-right
+                            .card-title New Customers
+                            .card-tools
+                                .dropdown
+                                    button#dropdownMenuButton.btn.btn-icon.btn-clean.me-0(type='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                                        i.fas.fa-ellipsis-h
+                                    .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                                        a.dropdown-item(href='#') Action
+                                        a.dropdown-item(href='#') Another action
+                                        a.dropdown-item(href='#') Something else here
+                        .card-list.py-4
+                            .item-list
+                                .avatar
+                                    img.avatar-img.rounded-circle(src='assets/img/jm_denis.jpg' alt='...')
+                                .info-user.ms-3
+                                    .username Jimmy Denis
+                                    .status Graphic Designer
+                                button.btn.btn-icon.btn-link.op-8.me-1
+                                    i.far.fa-envelope
+                                button.btn.btn-icon.btn-link.btn-danger.op-8
+                                    i.fas.fa-ban
+                            .item-list
+                                .avatar
+                                    span.avatar-title.rounded-circle.border.border-white CF
+                                .info-user.ms-3
+                                    .username Chandra Felix
+                                    .status Sales Promotion
+                                button.btn.btn-icon.btn-link.op-8.me-1
+                                    i.far.fa-envelope
+                                button.btn.btn-icon.btn-link.btn-danger.op-8
+                                    i.fas.fa-ban
+                            .item-list
+                                .avatar
+                                    img.avatar-img.rounded-circle(src='assets/img/talha.jpg' alt='...')
+                                .info-user.ms-3
+                                    .username Talha
+                                    .status Front End Designer
+                                button.btn.btn-icon.btn-link.op-8.me-1
+                                    i.far.fa-envelope
+                                button.btn.btn-icon.btn-link.btn-danger.op-8
+                                    i.fas.fa-ban
+                            .item-list
+                                .avatar
+                                    img.avatar-img.rounded-circle(src='assets/img/chadengle.jpg' alt='...')
+                                .info-user.ms-3
+                                    .username Chad
+                                    .status CEO Zeleaf
+                                button.btn.btn-icon.btn-link.op-8.me-1
+                                    i.far.fa-envelope
+                                button.btn.btn-icon.btn-link.btn-danger.op-8
+                                    i.fas.fa-ban
+                            .item-list
+                                .avatar
+                                    span.avatar-title.rounded-circle.border.border-white.bg-primary H
+                                .info-user.ms-3
+                                    .username Hizrian
+                                    .status Web Designer
+                                button.btn.btn-icon.btn-link.op-8.me-1
+                                    i.far.fa-envelope
+                                button.btn.btn-icon.btn-link.btn-danger.op-8
+                                    i.fas.fa-ban
+                            .item-list
+                                .avatar
+                                    span.avatar-title.rounded-circle.border.border-white.bg-secondary F
+                                .info-user.ms-3
+                                    .username Farrah
+                                    .status Marketing
+                                button.btn.btn-icon.btn-link.op-8.me-1
+                                    i.far.fa-envelope
+                                button.btn.btn-icon.btn-link.btn-danger.op-8
+                                    i.fas.fa-ban
+            .col-md-8
+                .card.card-round
+                    .card-header
+                        .card-head-row.card-tools-still-right
+                            .card-title Transaction History
+                            .card-tools
+                                .dropdown
+                                    button#dropdownMenuButton.btn.btn-icon.btn-clean.me-0(type='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                                        i.fas.fa-ellipsis-h
+                                    .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                                        a.dropdown-item(href='#') Action
+                                        a.dropdown-item(href='#') Another action
+                                        a.dropdown-item(href='#') Something else here
+                    .card-body.p-0
+                        .table-responsive
+                        // Projects table
+                        table.table.align-items-center.mb-0
+                            thead.thead-light
+                                tr
+                                    th(scope='col') Payment Number
+                                    th.text-end(scope='col') Date &amp; Time
+                                    th.text-end(scope='col') Amount
+                                    th.text-end(scope='col') Status
+                            tbody
+                                tr
+                                    th(scope='row')
+                                        button.btn.btn-icon.btn-round.btn-success.btn-sm.me-2
+                                            i.fa.fa-check
+                                        |                             Payment from #10231
+                                    td.text-end Mar 19, 2020, 2.45pm
+                                    td.text-end $250.00
+                                    td.text-end
+                                        span.badge.badge-success Completed
+

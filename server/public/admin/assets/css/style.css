@@ -1,0 +1,37 @@
+.page-header {
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+}
+.breadcrumbs {
+    padding: 0;
+    list-style: none;
+    background: none;
+}
+.breadcrumbs li {
+    display: inline;
+    font-size: 14px;
+}
+.breadcrumbs li a {
+    color: #007bff;
+    text-decoration: none;
+}
+.breadcrumbs li a:hover {
+    text-decoration: underline;
+}
+.breadcrumbs li.separator i {
+    margin: 0 5px;
+    color: #6c757d;
+}
+th.text-nowrap {
+    white-space: nowrap;
+}
+.form-group-btn{
+    display: flex;
+    align-items: center;
+}

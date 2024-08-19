@@ -1,0 +1,44 @@
+.sidebar(data-background-color='dark')
+  .sidebar-logo
+    .logo-header(data-background-color='dark')
+      a.logo(href='/admin/dashboard')
+        img.navbar-brand(src=`${prefixAdmin}/assets/img/kaiadmin/logo_light.svg` alt='navbar brand' height='20')
+      .nav-toggle
+        button.btn.btn-toggle.toggle-sidebar
+          i.gg-menu-right
+        button.btn.btn-toggle.sidenav-toggler
+          i.gg-menu-left
+      button.topbar-toggler.more
+        i.gg-more-vertical-alt
+    // End Logo Header
+  .sidebar-wrapper.scrollbar.scrollbar-inner
+    .sidebar-content
+      ul.nav.nav-secondary
+        li.nav-item.active
+          a.collapsed(href=`${prefixAdmin}/dashboard`)
+            i.fas.fa-home
+            p Dashboard
+        li.nav-section
+          span.sidebar-mini-icon
+            i.fa.fa-ellipsis-h
+          h4.text-section Components
+        li.nav-item
+          a(href= `${prefixAdmin}/posts`)
+            i.fas.fa-layer-group
+            p Phim
+        li.nav-item
+          a(href= `${prefixAdmin}/posts-category`)
+            i.fas.fa-layer-group
+            p Danh mục phim
+        li.nav-item
+          a(href= `${prefixAdmin}/roles`)
+            i.fas.fa-layer-group
+            p Nhóm quyền
+        li.nav-item
+          a(href= `${prefixAdmin}/roles/permissions`)
+            i.fas.fa-layer-group
+            p Phân quyền
+        li.nav-item
+          a(href= `${prefixAdmin}/accounts`)
+            i.fas.fa-layer-group
+            p Tài khoản

@@ -1,0 +1,60 @@
+mixin table-tree(items, level = 1)
+    each item, index in items
+        - const prefix = Array(level + 1).join("-- ");
+        tr
+            td
+                input(
+                    type="checkbox"
+                    name="id"
+                    value=item.id
+                )
+            td #{item.index}
+            td
+                img(src=`${item.thumbnail}`, style="width: 100px")
+            td #{prefix}#{item.title}
+            td
+                if item.status == "active"
+                    button.badge.badge-success(
+                        data-id=item.id
+                        data-status=item.status
+                        button-change-status
+                    ) Hoạt động
+                else
+                    button.badge.badge-danger(
+                        data-id=item.id
+                        data-status=item.status
+                        button-change-status
+                    ) Dừng hoạt động
+            td
+                input(
+                    type="number"
+                    value=item.position
+                    style="width: 60px"
+                    min="1"
+                    name="position"
+                )
+            td
+                .form-button-action
+                    a.btn.btn-link.btn-primary.btn-lg(
+                        type='button'
+                        href=`${prefixAdmin}/movies-category/edit/${item.id}`
+                        data-bs-toggle='tooltip'
+                        title=''
+                        data-original-title='Edit Task'
+                    )
+                        i.fa.fa-edit
+                    a.btn.btn-link.btn-danger(
+                        type='button'
+                        data-bs-toggle='tooltip'
+                        data-id=item.id
+                        button-delete
+                    )
+                        i.fa.fa-times
+                    a.btn.btn-link.btn-primary.btn-lg(
+                        type='button'
+                        href=`${prefixAdmin}/movies-category/detail/${item.id}`
+                        data-bs-toggle='tooltip'
+                    )
+                        i.fa.fa-info
+        if item.children && item.children.length > 0
+            +table-tree(item.children, level + 1)
