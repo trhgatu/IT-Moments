@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     /* Button Status */
     const buttonStatus = document.querySelectorAll('[button-status]')
-    if (buttonStatus.length > 0) {
+    if(buttonStatus.length > 0) {
         let url = new URL(window.location.href)
         buttonStatus.forEach(button => {
             button.addEventListener('click', () => {
                 const status = button.getAttribute('button-status')
-                if (status) {
+                if(status) {
                     url.searchParams.set('status', status)
                 } else {
                     url.searchParams.delete('status')
@@ -17,36 +17,93 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     /* Button Status End*/
 
-    //Upload Image
-    const uploadImage = document.querySelector("[upload-image]");
-    if (uploadImage) {
-        const uploadImageInput = document.querySelector("[upload-image-input]");
-        const uploadImagePreview = document.querySelector("[upload-image-preview]");
+    //Upload Thumbnail
+    const uploadThumbnail = document.querySelector("[upload-thumbnail]");
+    if(uploadThumbnail) {
+        const uploadThumbnailInput = document.querySelector("[upload-thumbnail-input]");
+        const uploadThumbnailPreview = document.querySelector("[upload-thumbnail-preview]");
 
-        if (!uploadImagePreview.src || uploadImagePreview.src.trim() === "") {
-            uploadImagePreview.classList.add('hidden');
+        if(!uploadThumbnailPreview.src || uploadThumbnailPreview.src.trim() === "") {
+            uploadThumbnailPreview.classList.add('hidden');
         }
 
-        uploadImageInput.addEventListener("change", (e) => {
+        uploadThumbnailInput.addEventListener("change", (e) => {
             const file = e.target.files[0];
-            if (file) {
-                uploadImagePreview.src = URL.createObjectURL(file);
-                uploadImagePreview.classList.remove('hidden');
+            if(file) {
+                uploadThumbnailPreview.src = URL.createObjectURL(file);
+                uploadThumbnailPreview.classList.remove('hidden');
             }
         });
     }
-    //End Upload Image
+    //End Upload Thumbnail
+
+    const uploadImages = document.querySelector("[upload-images]");
+    if (uploadImages) {
+        const uploadImagesInput = document.querySelector("[upload-images-input]");
+        const uploadImagesPreview = document.querySelector(".upload-images-preview"); // Chỉnh sửa selector
+
+        // Xử lý hiển thị ảnh từ cơ sở dữ liệu
+        const initialImages = Array.from(uploadImagesPreview.querySelectorAll('img'));
+        initialImages.forEach(img => {
+            img.classList.add('preview-image'); // Thêm lớp cho các ảnh nếu cần
+        });
+
+        uploadImagesInput.addEventListener("change", (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                // Xóa các ảnh hiện tại trong khu vực xem trước
+                uploadImagesPreview.innerHTML = '';
+
+                // Hiển thị các ảnh đã chọn
+                Array.from(files).forEach(file => {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    img.classList.add('preview-image'); // Thêm lớp cho các ảnh nếu cần
+                    uploadImagesPreview.appendChild(img);
+                });
+            }
+        });
+
+        // Nếu không có ảnh ban đầu, ẩn khu vực xem trước
+        if (uploadImagesPreview.children.length === 0) {
+            uploadImagesPreview.classList.add('hidden');
+        } else {
+            uploadImagesPreview.classList.remove('hidden');
+        }
+    }
+
+    //Upload Video
+    const uploadVideo = document.querySelector("[upload-video]");
+    if (uploadVideo) {
+        const uploadVideoInput = document.querySelector("[upload-video-input]");
+        const uploadVideoPreview = document.querySelector("[upload-video-preview]");
+
+        if(!uploadVideoPreview.src || uploadVideoPreview.src.trim() === ""){
+            uploadVideoPreview.classList.add('hidden');
+        }
+
+        uploadVideoInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                uploadVideoPreview.src = URL.createObjectURL(file);
+                uploadVideoPreview.classList.remove('hidden');
+
+            }
+        });
+    }
+
+//End video-preview
 
     //Show alert
     const showAlert = document.querySelector("[show-alert]");
-    if(showAlert){
+    if(showAlert) {
         const time = parseInt(showAlert.getAttribute("data-time"));
-        setTimeout(() =>{
+        setTimeout(() => {
             showAlert.classList.add("alert-hidden");
         }, time);
 
         const closeAlert = showAlert.querySelector("[close-alert]");
-        closeAlert.addEventListener("click", () =>{
+        closeAlert.addEventListener("click", () => {
             showAlert.classList.add("alert-hidden");
         });
     }
@@ -59,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault()
         const keyword = e.target.elements.keyword.value.trim();
 
-        if (keyword) {
+        if(keyword) {
             url.searchParams.set('keyword', keyword);
         } else {
             url.searchParams.delete('keyword');
@@ -70,13 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Pagination */
     const btnsPagination = document.querySelectorAll('[button-pagination]')
-    if (btnsPagination) {
+    if(btnsPagination) {
         let url = new URL(window.location.href)
 
         btnsPagination.forEach(button => {
             button.addEventListener('click', () => {
                 const page = button.getAttribute('button-pagination')
-                if (page) {
+                if(page) {
                     url.searchParams.set('page', page)
                 }
                 window.location.href = url.href
@@ -87,12 +144,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* Checkbox multi */
     const checkBoxMulti = document.querySelector('[checkbox-multi]')
-    if (checkBoxMulti) {
+    if(checkBoxMulti) {
         const inputCheckAll = checkBoxMulti.querySelector("input[name ='checkall']")
         const inputsIds = checkBoxMulti.querySelectorAll("input[name ='id']")
 
         inputCheckAll.addEventListener('click', () => {
-            if (inputCheckAll.checked) {
+            if(inputCheckAll.checked) {
                 inputsIds.forEach(input => {
                     input.checked = true
                 })
@@ -109,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     "input[name = 'id']:checked"
                 ).length //Tìm đến ô input đã check
 
-                if (countChecked == inputsIds.length) {
+                if(countChecked == inputsIds.length) {
                     inputCheckAll.checked = true
                 } else {
                     inputCheckAll.checked = false
@@ -121,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Form Change Multiple
     const formChangeMulti = document.querySelector('[form-change-multi]')
-    if (formChangeMulti) {
+    if(formChangeMulti) {
         formChangeMulti.addEventListener('submit', e => {
             e.preventDefault()
 
@@ -131,20 +188,20 @@ document.addEventListener('DOMContentLoaded', () => {
             )
 
             const typeChange = e.target.elements.type.value
-            if (typeChange == 'delete-all') {
+            if(typeChange == 'delete-all') {
                 const isConfirm = confirm('Bạn có chắc muốn xóa những bộ phim này?')
 
-                if (!isConfirm) {
+                if(!isConfirm) {
                     return
                 }
             }
 
-            if (inputsChecked.length > 0) {
+            if(inputsChecked.length > 0) {
                 let ids = []
                 const inputIds = formChangeMulti.querySelector("input[name='ids']")
                 inputsChecked.forEach(input => {
                     const id = input.value
-                    if (typeChange == 'change-position') {
+                    if(typeChange == 'change-position') {
                         const position = input
                             .closest('tr')
                             .querySelector("input[name = 'position']").value
@@ -165,42 +222,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //Sort
-    const sort = document.querySelector("[sort]");
-    if(sort){
-        let url = new URL(window.location.href)
-        const sortSelect = sort.querySelector("[sort-select]");
-        const sortClear = sort.querySelector("[sort-clear]");
+const sort = document.querySelector("[sort]");
+if(sort) {
+    let url = new URL(window.location.href)
+    const sortSelect = sort.querySelector("[sort-select]");
+    const sortClear = sort.querySelector("[sort-clear]");
 
-        sortSelect.addEventListener("change", (e) =>{
-            const value = e.target.value;
-            const [sortKey, sortValue] = value.split("-");
-            console.log(sortKey);
-            console.log(sortValue);
+    sortSelect.addEventListener("change", (e) => {
+        const value = e.target.value;
+        const [sortKey, sortValue] = value.split("-");
+        console.log(sortKey);
+        console.log(sortValue);
 
-            url.searchParams.set("sortKey", sortKey);
-            url.searchParams.set("sortValue", sortValue);
+        url.searchParams.set("sortKey", sortKey);
+        url.searchParams.set("sortValue", sortValue);
 
-            window.location.href = url.href;
-        })
+        window.location.href = url.href;
+    })
 
-        //Xóa sort
-        sortClear.addEventListener("click", () => {
-            url.searchParams.delete("sortKey");
-            url.searchParams.delete("sortvalue");
+    //Xóa sort
+    sortClear.addEventListener("click", () => {
+        url.searchParams.delete("sortKey");
+        url.searchParams.delete("sortvalue");
 
-            window.location.href = url.href;
-        });
+        window.location.href = url.href;
+    });
 
-        //Thêm selected cho option
-        const sortKey = url.searchParams.get("sortKey");
-        const sortValue = url.searchParams.get("sortValue");
+    //Thêm selected cho option
+    const sortKey = url.searchParams.get("sortKey");
+    const sortValue = url.searchParams.get("sortValue");
 
-        if(sortKey && sortValue){
-            const stringSort = `${sortKey}-${sortValue}`
-            const optionSelected = sortSelect.querySelector(`option[value='${stringSort}'`);
+    if(sortKey && sortValue) {
+        const stringSort = `${sortKey}-${sortValue}`
+        const optionSelected = sortSelect.querySelector(`option[value='${stringSort}'`);
 
-            optionSelected.selected = true;
-        }
+        optionSelected.selected = true;
     }
+}
 
 //End Sort
+
+

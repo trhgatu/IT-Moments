@@ -35,3 +35,39 @@ th.text-nowrap {
     display: flex;
     align-items: center;
 }
+
+
+[upload-video-preview]{
+    margin-top: 20px;
+    max-width: 600px;
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+[upload-thumbnail-preview]{
+    display: block;
+    max-width: 50%;
+    height: auto;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.upload-images-preview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 300px;
+    overflow: hidden;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    margin: 5px;
+}
+

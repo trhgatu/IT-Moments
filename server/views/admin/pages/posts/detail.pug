@@ -1,0 +1,78 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+    +alert-error(3000)
+    +alert-success(3000)
+    .page-inner
+        .page-header
+            h3.fw-bold.mb-3 #{pageTitle}
+            ul.breadcrumbs.mb-3
+                li.nav-home
+                    a(href=`${prefixAdmin}/`)
+                        i.icon-home
+                li.separator
+                    i.icon-arrow-right
+                li.nav-item
+                    a(href=`${prefixAdmin}/posts`) Phim
+                li.separator
+                    i.icon-arrow-right
+                li.nav-item
+                    a(href='#') #{post.title}
+        .row
+            .col-md-12
+                .card
+                    .card-header
+                        .card-title #{post.title}
+                    .card-body
+                        .row
+                            .col-md-4
+                                img.img-fluid(src=post.thumbnail ? post.thumbnail : "/path/to/default-thumbnail.jpg" alt=post.title style="width: 400px")
+                            .col-md-8
+                                h5 Thông tin bài viết
+                                table.table.table-striped
+                                    tbody
+                                        tr
+                                            th.text-nowrap Tiêu đề:
+                                            td #{post.title}
+                                        tr
+                                            th.text-nowrap Nội dung:
+                                            td !{post.description}
+                                        tr
+                                            th.text-nowrap Vị trí:
+                                            td #{post.position}
+                                        tr
+                                            th.text-nowrap Trạng thái:
+                                            td
+                                                if(post.status === "active")
+                                                    button(
+                                                        class="badge badge-success"
+                                                    ) Hoạt động
+                                                else
+                                                    button(
+                                                        class="badge badge-danger"
+                                                    ) Dừng hoạt động
+                                //- Xem video (nếu có)
+                                if (post.video)
+                                    .form-group
+                                        h5 Xem video
+                                        video(
+                                            autoplay
+                                            controls
+                                            style="display: block; max-width: 100%; height: 300px; margin-top: 10px;"
+                                        )
+                                            source(src=post.video, type="video/mp4")
+                                            | Your browser does not support the video tag.
+
+                                if (post.images && post.images.length > 0)
+                                    .form-group
+                                        h5 Thư viện ảnh
+                                        .row
+                                            each image in post.images
+                                                .col-md-3
+                                                    img.img-fluid(src=image, alt="Image", style="width: 100%; margin-top: 10px;")
+                                .form-group-btn
+                                    .form-group
+                                        a.btn.btn-primary(href=`${prefixAdmin}/posts/edit/${post.id}`) Chỉnh sửa
+                                    .form-group
+                                        a.btn.btn-secondary(href=`${prefixAdmin}/posts`) Quay lại

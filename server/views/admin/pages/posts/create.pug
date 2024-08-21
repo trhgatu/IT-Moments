@@ -1,0 +1,153 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+    +alert-success(5000)
+    +alert-error(5000)
+    .page-inner
+        .page-header
+            h3.fw-bold.mb-3 Forms
+            ul.breadcrumbs.mb-3
+                li.nav-home
+                    a(href='#')
+                        i.icon-home
+                li.separator
+                         i.icon-arrow-right
+                li.nav-item
+                    a(href='#') Forms
+                li.separator
+                        i.icon-arrow-right
+                li.nav-item
+                    a(href='#') Basic Form
+        .row
+            .col-md-12
+                .card
+                    .card-header
+                        .card-title #{pageTitle}
+                    .card-body
+                        .row
+                            .col-md-10.col-lg-8
+                                form(
+                                    action = `${prefixAdmin}/posts/create`
+                                    id="form-create-movie"
+                                    method="POST"
+                                    enctype="multipart/form-data"
+                                )
+                                    div(class="form-group")
+                                        label(for='title') Tiêu đề
+                                        input(
+                                            type="text"
+                                            class="form-control"
+                                            id="title"
+                                            name="title"
+                                            required
+                                        )
+
+                                    //div(class="form-group")
+                                        label(for='movie_category_id') Danh mục
+                                        select(
+                                            id="movie_category_id"
+                                            name="movie_category_id"
+                                            class="form-control"
+                                        )
+                                            option(value="") ---- Chọn danh mục ----
+                                            if(category)
+                                                +select-tree(category)
+
+                                    div(class="form-group")
+                                        label(for='desc') Mô tả
+                                        textarea(
+                                            class="form-control textarea-mce"
+                                            id="desc"
+                                            name="description"
+                                            rows="5"
+                                        )
+
+                                    div(class="form-group" upload-thumbnail)
+                                        label(for='thumbnail') Ảnh
+                                        .br
+                                        input(
+                                            type="file"
+                                            class="form-control-file"
+                                            id="thumbnail"
+                                            name="thumbnail"
+                                            accept="image/*"
+                                            upload-thumbnail-input
+                                        )
+                                        img(src=" " upload-thumbnail-preview)
+
+                                    div(class="form-group" id="upload-images")
+                                        label(for='images') Thư viện ảnh
+                                        .br
+                                        input(
+                                            type="file"
+                                            class="form-control-file"
+                                            id="images"
+                                            name="images"
+                                            accept="image/*"
+                                            multiple
+                                            upload-images-input
+                                        )
+                                        div(id="upload-images-preview")
+
+
+                                    div(class="form-group" upload-video)
+                                        label(for='video') Video
+                                        .br
+                                        input(
+                                            type="file"
+                                            class="form-control-file"
+                                            id="video"
+                                            name="video"
+                                            accept="video/*"
+                                            upload-video-input
+                                        )
+                                        video(
+                                            id="video-preview"
+                                            controls
+                                            autoplay
+                                            muted
+                                            upload-video-preview
+                                        )
+                                            source(src="", id="video-source" upload-video-source)
+
+
+                                    div(class="form-group")
+                                        label(for='position') Vị trí
+                                        input(
+                                            type="number"
+                                            placeholder="Tự động tăng"
+                                            class="form-control"
+                                            id="position"
+                                            name="position"
+                                            min="1"
+                                        )
+
+                                    div(class="form-group form-check form-check-inline")
+                                        input(
+                                            type="radio"
+                                            class="form-check-input"
+                                            id="statusActive"
+                                            name="status"
+                                            value="active"
+                                            checked
+                                        )
+                                        label(for="statusActive" class="form-check-label") Hoạt động
+                                    div(class="form-group form-check form-check-inline")
+                                        input(
+                                            type="radio"
+                                            class="form-check-input"
+                                            id="statusInActive"
+                                            name="status"
+                                            value="inactive"
+                                        )
+                                        label(for="statusInActive" class="form-check-label") Dừng hoạt động
+                                    div(class="form-group")
+                                        button(
+                                            type="submit"
+                                            class="btn btn-primary"
+                                        ) Tạo mới
+
+
+
+
