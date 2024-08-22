@@ -1,0 +1,102 @@
+extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+include ../../mixins/sort.pug
+include ../../mixins/table-tree.pug
+
+block main
+    +alert-success("5000")
+    +alert-error("5000")
+    .page-inner
+        .page-header
+            h3.fw-bold.mb-3 Danh mục bài viết
+            ul.breadcrumbs.mb-3
+                li.nav-home
+                    a(href='#')
+                        i.icon-home
+                li.separator
+                    i.icon-arrow-right
+                li.nav-item
+                    a(href='#') Tables
+                li.separator
+                    i.icon-arrow-right
+                li.nav-item
+                    a(href='#') Basic Tables
+        .row
+            .col-md-12
+                .card
+                    .card-header
+                        .card-head-row.card-tools-still-right
+                            nav.navbar.navbar-header-left.navbar-expand-lg.navbar-form.nav-search.p-0.d-none.d-lg-flex
+                                //Mixin search
+                                +search(keyword)
+                            a(class="btn btn-outline-success d-flex" href=`${prefixAdmin}/posts/trash` style="margin-left: 20px")
+                                i.fa.fa-trash  Thùng rác
+                            .card-tools
+                                .dropdown
+                                    | Bộ lọc
+                                    button#dropdownMenuButton.btn.btn-icon.btn-clean.me-0(type='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                                        i.fas.fa-ellipsis-h
+                                    .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                                        // Mixins bộ lọc
+
+
+
+
+                    .card-body
+                        .row.align-items-center
+                            .col-10
+                                //Mixin changemulti
+                                //+form-change-multi(`${prefixAdmin}/movies/change-multi?_method=PATCH`)
+                            .col-2
+                                a(
+                                    href=`${prefixAdmin}/posts-category/create`
+                                    class="btn btn-outline-success"
+                                ) + Thêm mới
+                        .d-flex.align-items-center
+                            .col-2
+                                //Mixin sắp xếp
+                                //+sort()
+
+                        table(
+                            class="table mt-3"
+                            checkbox-multi
+                            )
+                            thead
+                                tr
+                                    th
+                                        input(type="checkbox" name="checkall")
+                                    th(scope='col') STT
+                                    th(scope='col') Hình ảnh
+                                    th(scope='col') Tiêu đề
+                                    th(scope='col') T.Thái
+                                    th(scope='col') Vị trí
+                                    th(scope='col') Hành động
+                            tbody
+                                +table-tree(records)
+
+                    //Pagination
+                    //+pagination(pagination)
+
+
+                    form(
+                        action=""
+                        method="POST"
+                        id="form-change-status"
+                        data-path=`${prefixAdmin}/posts/change-status`
+                    )
+
+                    form(
+                        action=""
+                        method="POST"
+                        id="form-delete-item"
+                        data-path=`${prefixAdmin}/posts/delete`
+                    )
+                    script(src=`${prefixAdmin}/assets/js/posts.js`)
+
+
+
+

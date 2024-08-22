@@ -14,6 +14,8 @@ const flash = require('express-flash');
 const cookieParser = require("cookie-parser");
 const session = require('express-session');
 
+
+
 // Middleware cơ bản
 app.use(methodOverride('_method')); // Cho phép sử dụng các phương thức HTTP khác ngoài GET và POST
 app.use(bodyParser.urlencoded({ extended: false })); // Phân tích dữ liệu form gửi lên
@@ -39,10 +41,7 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 // Định tuyến
 routeAdmin(app); // Đăng ký các route cho admin
 
-// API Route (Ví dụ)
-app.get('/api/message', (req, res) => {
-  res.json({ message: 'Dữ liệu được gửi từ backend!' }); // Ví dụ về một API route
-});
+
 
 // Khởi động server
 const port = process.env.PORT;
