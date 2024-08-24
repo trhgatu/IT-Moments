@@ -113,7 +113,7 @@ module.exports.edit = async (req, res) => {
         const post = await Post.findOne(find);
 
         //const category = await MovieCategory.find({
-            //deleted: false
+        //deleted: false
         //});
         //const newCategory = createTreeHelper.tree(category);
 
@@ -145,6 +145,64 @@ module.exports.editPatch = async (req, res) => {
         req.flash('success', `Cập nhật thành công!`)
     } catch(error) {
         req.flash('error', `Cập nhật thất bại!`)
+    }
+    res.redirect('back')
+}
+/* [PATCH] /admin/posts/change-status/:status/:id */
+module.exports.changeStatus = async (req, res) => {
+    const status = req.params.status;
+    const id = req.params.id;
+
+    await Post.updateOne({ _id: id }, { status: status });
+
+    req.flash('success', 'Cập nhật trạng thái thành công!');
+    res.redirect('back');
+}
+/* [PATCH] /admin/movies/change-multi */
+module.exports.changeMulti = async (req, res) => {
+    const type = req.body.type;
+    const ids = req.body.ids.split(', ');
+
+    switch(type) {
+        case 'active':
+            await Post.updateMany({ _id: { $in: ids } }, { status: 'active' });
+            req.flash(
+                'success',
+                `Cập nhật trạng thái của ${ids.length} bài viết thành công!`
+            )
+            break;
+        case 'inactive':
+            await Post.updateMany({ _id: { $in: ids } }, { status: 'inactive' });
+            req.flash(
+                'success',
+                `Cập nhật trạng thái của ${ids.length} bài viết thành công!`
+            );
+            break;
+        case 'delete-all':
+            await Post.updateMany(
+                {
+                    _id: { $in: ids },
+                },
+                {
+                    deleted: true,
+                    deletedAt: new Date(),
+                }
+            );
+            req.flash('success', `Xóa ${ids.length} bài viết thành công!`);
+            break;
+        case 'change-position':
+            for(const item of ids) {
+                let [id, position] = item.split('-');
+                position = parseInt(position);
+                await Post.updateOne({ _id: id }, { position: position });
+            }
+            req.flash(
+                'success',
+                `Thay đổi vị trí của ${ids.length} bài viết thành công!`
+            );
+            break;
+        default:
+            break;
     }
     res.redirect('back')
 }
