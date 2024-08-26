@@ -24,5 +24,8 @@ router.patch('/edit/:id/',
     validate.createPost,
     controller.editPatch);
 
+router.patch('/change-multi', controller.changeMulti);
 router.delete('/delete/:id', controller.deleteItem);
+
+router.patch('/change-status/:status/:id', controller.changeStatus);
 module.exports = router;

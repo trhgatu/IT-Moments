@@ -5,14 +5,11 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
-include ../../mixins/table-tree.pug
-
 block main
     +alert-success("5000")
-    +alert-error("5000")
     .page-inner
         .page-header
-            h3.fw-bold.mb-3 Danh mục bài viết
+            h3.fw-bold.mb-3 Nhóm quyền
             ul.breadcrumbs.mb-3
                 li.nav-home
                     a(href='#')
@@ -31,73 +28,76 @@ block main
                     .card-header
                         .card-head-row.card-tools-still-right
                             nav.navbar.navbar-header-left.navbar-expand-lg.navbar-form.nav-search.p-0.d-none.d-lg-flex
-                                //Mixin search
-                                +search(keyword)
-                            a(class="btn btn-outline-success d-flex" href=`${prefixAdmin}/posts/trash` style="margin-left: 20px")
-                                i.fa.fa-trash  Thùng rác
                             .card-tools
                                 .dropdown
                                     | Bộ lọc
                                     button#dropdownMenuButton.btn.btn-icon.btn-clean.me-0(type='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
                                         i.fas.fa-ellipsis-h
                                     .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                                        // Mixins bộ lọc
-                                        +filter-status(filterStatus)
-
+                                        //Mixins bộ lọc
+                                        //+filter-status(filterStatus)
 
 
 
                     .card-body
                         .row.align-items-center
-                            .col-10
-                                //Mixin changemulti
-                                +form-change-multi(`${prefixAdmin}/posts-category/change-multi?_method=PATCH`)
                             .col-2
                                 a(
-                                    href=`${prefixAdmin}/posts-category/create`
+                                    href=`${prefixAdmin}/roles/create`
                                     class="btn btn-outline-success"
                                 ) + Thêm mới
                         .d-flex.align-items-center
                             .col-2
-                                //Mixin sắp xếp
-                                +sort()
+
 
                         table(
                             class="table mt-3"
-                            checkbox-multi
                             )
                             thead
                                 tr
-                                    th
-                                        input(type="checkbox" name="checkall")
                                     th(scope='col') STT
-                                    th(scope='col') Hình ảnh
                                     th(scope='col') Tiêu đề
-                                    th(scope='col') T.Thái
-                                    th(scope='col') Vị trí
+                                    th(scope='col') Mô tả
                                     th(scope='col') Hành động
                             tbody
-                                +table-tree(records)
+                                each item, index in records
+                                    tr
+                                        td #{index +1 }
+                                        td #{item.title}
+                                        td #{item.description}
+                                        td
+                                            .form-button-action
+                                                a.btn.btn-link.btn-primary.btn-lg(
+                                                    type='button'
+                                                    href=`${prefixAdmin}/roles/edit/${item.id}`
+                                                    data-bs-toggle='tooltip'
+                                                    title=''
+                                                    data-original-title='Edit Task')
+                                                    i.fa.fa-edit
+                                                a.btn.btn-link.btn-danger(
+
+                                                    type='button'
+                                                    data-bs-toggle='tooltip'
+                                                    data-id = item.id
+                                                    button-delete
+                                                    )
+                                                    i.fa.fa-times
+                                                a.btn.btn-link.btn-primary.btn-lg(
+                                                    type='button'
+                                                    href=`${prefixAdmin}/roles/detail/${item.id}`
+                                                    data-bs-toggle='tooltip'
+                                                    )
+                                                    i.fa.fa-info
 
 
-                    +pagination(pagination)
 
 
-                    form(
-                        action=""
-                        method="POST"
-                        id="form-change-status"
-                        data-path=`${prefixAdmin}/posts-category/change-status`
-                    )
+
 
                     form(
                         action=""
                         method="POST"
                         id="form-delete-item"
-                        data-path=`${prefixAdmin}/posts-category/delete`
+                        data-path=`${prefixAdmin}/roles/delete`
                     )
-                    script(src=`${prefixAdmin}/assets/js/posts-category.js`)
-
-
-
-
+                    script(src=`${prefixAdmin}/assets/js/movies.js`)
