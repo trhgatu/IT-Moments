@@ -36,6 +36,7 @@ router.get('/edit/:id', controller.edit);
 
 router.patch('/change-multi', controller.changeMulti);
 
+router.delete('/delete/:id', controller.deleteItem);
 router.patch('/edit/:id',
     upload.fields([{ name: 'thumbnail', maxCount: 1 }, { name: 'images', maxCount: 8 }, { name: 'video', maxCount: 1 }]),
     uploadCloud.upload,

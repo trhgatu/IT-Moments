@@ -206,3 +206,17 @@ module.exports.changeMulti = async (req, res) => {
     }
     res.redirect('back')
 }
+
+/* [DELETE] /admin/movies/delete/:id */
+module.exports.deleteItem = async (req, res) => {
+    const id = req.params.id;
+    await Post.updateOne(
+        { _id: id },
+        {
+            deleted: true,
+            deletedAt: new Date(),
+        }
+    );
+    req.flash('success', `Xóa bài viết thành công!`);
+    res.redirect('back');
+}
