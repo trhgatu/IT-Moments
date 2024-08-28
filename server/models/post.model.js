@@ -13,21 +13,36 @@ const postSchema = new mongoose.Schema({
     thumbnail: String,
     video: String,
     status: String,
+    position: Number,
     images: [String],
-    deleted: {
-        type: Boolean,
-        default: false
-    },
+
     slug:{
         type: String,
         slug: "title",
         unique: true
     },
-    deletedAt: Date,
-    position: Number,
+    createdBy :{
+        account_id: String,
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
+    },
+    deleted: {
+        type: Boolean,
+        default: false
+    },
+    deletedBy :{
+        account_id: String,
+        deletedAt: {
+            type: Date,
+            default: Date.now
+        }
+    },
+
 },{
     timestamps: true,
-})
+});
 const Post = mongoose.model('Post', postSchema, 'posts');
 
 module.exports = Post;

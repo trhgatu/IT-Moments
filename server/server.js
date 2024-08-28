@@ -4,6 +4,7 @@ const express = require('express');
 const path = require("path");
 const app = express();
 const database = require("./config/database");
+var moment = require('moment');
 database.connect();
 
 // Khởi tạo các middleware cần thiết
@@ -30,7 +31,10 @@ app.use(flash()); // Xử lý các thông báo flash
 // Cấu hình các thư viện và định tuyến
 const routeAdmin = require('./routes/admin/index.route');
 const systemConfig = require("./config/system");
+
+//App local
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.moment = moment;
 
 app.set("views", `${__dirname}/views`); // Thiết lập thư mục chứa các template views
 app.set("view engine", "pug"); // Thiết lập pug làm engine template

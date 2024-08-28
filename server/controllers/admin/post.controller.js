@@ -1,5 +1,6 @@
 const Post = require("../../models/post.model");
 const PostCategory = require("../../models/post-category.model");
+const Account = require("../../models/account.model");
 const filterStatusHelper = require('../../helpers/filterStatus');
 const searchHelper = require('../../helpers/search');
 const paginationHelper = require('../../helpers/pagination');
@@ -55,6 +56,16 @@ module.exports.index = async (req, res) => {
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skip);
 
+    for (const post of posts){
+        const user = await Account.findOne({
+            _id: post.createdBy.account_id
+        });
+
+        if(user){
+            post.accountFullName = user.fullName;
+        }
+    }
+
     res.render('admin/pages/posts/index', {
         pageTitle: 'Danh sách bài viết',
         posts: posts,
@@ -65,6 +76,7 @@ module.exports.index = async (req, res) => {
 }
 /* [GET] /admin/posts/create */
 module.exports.create = async (req, res) => {
+    console.log(res.locals.user);
     let find = {
         deleted: false
     }
@@ -83,6 +95,9 @@ module.exports.createPost = async (req, res) => {
     } else {
         req.body.position = parseInt(req.body.position);
     }
+    req.body.createdBy = {
+        account_id : res.locals.user.id
+    };
 
     try {
         const post = new Post(req.body);
