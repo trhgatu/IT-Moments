@@ -1,8 +1,10 @@
 const Post = require("../../models/post.model");
+const PostCategory = require("../../models/post-category.model");
 const filterStatusHelper = require('../../helpers/filterStatus');
 const searchHelper = require('../../helpers/search');
 const paginationHelper = require('../../helpers/pagination');
 const { post } = require("../../routes/admin/dashboard.route");
+const createTreeHelper = require("../../helpers/createTree");
 const systemConfig = require("../../config/system");
 
 
@@ -63,8 +65,14 @@ module.exports.index = async (req, res) => {
 }
 /* [GET] /admin/posts/create */
 module.exports.create = async (req, res) => {
+    let find = {
+        deleted: false
+    }
+    const category = await PostCategory.find(find);
+    const newCategory = createTreeHelper.tree(category);
     res.render('admin/pages/posts/create', {
         pageTitle: "Thêm bài viết mới",
+        category: newCategory
     })
 }
 /* [POST] /admin/posts/create */
@@ -112,15 +120,15 @@ module.exports.edit = async (req, res) => {
         }
         const post = await Post.findOne(find);
 
-        //const category = await MovieCategory.find({
-        //deleted: false
-        //});
-        //const newCategory = createTreeHelper.tree(category);
+        const category = await PostCategory.find({
+            deleted: false
+        });
+        const newCategory = createTreeHelper.tree(category);
 
         res.render('admin/pages/posts/edit', {
-            pageTitle: 'Sửa phim',
+            pageTitle: 'Sửa bài viết',
             post: post,
-            //category: newCategory
+            category: newCategory
         })
     } catch(error) {
         res.redirect(`${systemConfig.prefixAdmin}/posts`);
@@ -130,11 +138,7 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
     const id = req.params.id;
     req.body.position = parseInt(req.body.position);
-
-    if(req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`
-    }
-
+    console.log(req.body);
     try {
         await Post.updateOne(
             {

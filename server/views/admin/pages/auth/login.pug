@@ -1,0 +1,30 @@
+extends ../../layouts/auth.pug
+include ../../mixins/alert.pug
+
+block main
+    +alert-success(5000)
+    +alert-error(5000)
+    .d-flex.align-items-center.justify-content-center.vh-100
+        .card.p-4(style="width: 300px;")
+            h3.text-center.mb-4 Đăng nhập
+            form(
+                action=`${prefixAdmin}/auth/login`,
+                method="POST"
+            )
+                .mb-3
+                    label(for="email") Email
+                    input#username.form-control(
+                        type="email"
+                        name="email"
+                        placeholder="Nhập Email"
+                        required
+                    )
+                .mb-3
+                    label(for="password") Mật khẩu
+                    input#password.form-control(
+                        type="password"
+                        name="password"
+                        placeholder="Nhập mật khẩu"
+                        required
+                    )
+                button.btn.btn-primary.w-100(type="submit") Đăng nhập

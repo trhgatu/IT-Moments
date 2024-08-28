@@ -131,5 +131,4 @@ module.exports.deleteItem = async (req, res) => {
         req.flash('success', `Xóa tài khoản thất bại!`);
     }
     res.redirect('back');
-
 }

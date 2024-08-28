@@ -1,6 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
-
+include ../../mixins/select-tree.pug
 block main
     +alert-success(5000)
     +alert-error(5000)
@@ -28,8 +28,7 @@ block main
                         .row
                             .col-md-10.col-lg-8
                                 form(
-                                    action = `${prefixAdmin}/posts/create`
-                                    id="form-create-movie"
+                                    action = `${prefixAdmin}/posts/edit/${post.id}?_method=PATCH`
                                     method="POST"
                                     enctype="multipart/form-data"
                                 )
@@ -44,16 +43,16 @@ block main
                                             value=post.title
                                         )
 
-                                    //div(class="form-group")
-                                        label(for='movie_category_id') Danh mục
+                                    div(class="form-group")
+                                        label(for='post_category_id') Danh mục
                                         select(
-                                            id="movie_category_id"
-                                            name="movie_category_id"
+                                            id="post_category_id"
+                                            name="post_category_id"
                                             class="form-control"
                                         )
                                             option(value="") ---- Chọn danh mục ----
                                             if(category)
-                                                +select-tree(category)
+                                                +select-tree(category, 1, post.post_category_id)
 
                                     div(class="form-group")
                                         label(for='desc') Mô tả
@@ -126,6 +125,7 @@ block main
                                             id="position"
                                             name="position"
                                             min="1"
+                                            value=post.position
                                         )
 
                                     div(class="form-group form-check form-check-inline")
@@ -135,7 +135,7 @@ block main
                                             id="statusActive"
                                             name="status"
                                             value="active"
-                                            checked
+                                            checked=(post.status == "active" ? true : false )
                                         )
                                         label(for="statusActive" class="form-check-label") Hoạt động
                                     div(class="form-group form-check form-check-inline")
@@ -145,13 +145,14 @@ block main
                                             id="statusInActive"
                                             name="status"
                                             value="inactive"
+                                            checked=(post.status == "inactive" ? true : false )
                                         )
                                         label(for="statusInActive" class="form-check-label") Dừng hoạt động
                                     div(class="form-group")
                                         button(
                                             type="submit"
                                             class="btn btn-primary"
-                                        ) Tạo mới
+                                        ) Cập nhật
 
 
 
