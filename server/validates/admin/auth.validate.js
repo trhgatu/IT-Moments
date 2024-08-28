@@ -7,4 +7,5 @@ module.exports.loginPost = (req, res, next) =>{
         req.flash("error", `Vui lòng nhập mật khẩu!`);
         res.redirect("back");
     }
+    next();
 }

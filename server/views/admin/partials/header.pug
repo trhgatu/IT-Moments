@@ -171,10 +171,11 @@
               li
                 .dropdown-divider
                 a.dropdown-item(href='#') My Profile
-                a.dropdown-item(href='#') My Balance
                 a.dropdown-item(href='#') Inbox
                 .dropdown-divider
-                a.dropdown-item(href='#') Account Setting
+                a.dropdown-item(href='#') Cài đặt tài khoản
                 .dropdown-divider
-                a.dropdown-item(href='#') Logout
+                a.dropdown-item(
+                  href=`${prefixAdmin}/auth/logout`
+                  ) Đăng xuất
   // End Navbar
