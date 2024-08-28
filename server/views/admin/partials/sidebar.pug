@@ -22,23 +22,28 @@
           span.sidebar-mini-icon
             i.fa.fa-ellipsis-h
           h4.text-section Components
-        li.nav-item
-          a(href= `${prefixAdmin}/posts`)
-            i.fas.fa-layer-group
-            p Bài viết
-        li.nav-item
-          a(href= `${prefixAdmin}/posts-category`)
-            i.fas.fa-layer-group
-            p Danh mục bài viết
-        li.nav-item
-          a(href= `${prefixAdmin}/roles`)
-            i.fas.fa-layer-group
-            p Nhóm quyền
-        li.nav-item
-          a(href= `${prefixAdmin}/roles/permissions`)
-            i.fas.fa-layer-group
-            p Phân quyền
-        li.nav-item
-          a(href= `${prefixAdmin}/accounts`)
-            i.fas.fa-layer-group
-            p Tài khoản
+        if(role.permissions.includes("posts_view"))
+          li.nav-item
+            a(href= `${prefixAdmin}/posts`)
+              i.fas.fa-layer-group
+              p Bài viết
+        if(role.permissions.includes("posts-category_view"))
+          li.nav-item
+            a(href= `${prefixAdmin}/posts-category`)
+              i.fas.fa-layer-group
+              p Danh mục bài viết
+        if(role.permissions.includes("roles_view"))
+          li.nav-item
+            a(href= `${prefixAdmin}/roles`)
+              i.fas.fa-layer-group
+              p Nhóm quyền
+        if(role.permissions.includes("roles_permissions"))
+          li.nav-item
+            a(href= `${prefixAdmin}/roles/permissions`)
+              i.fas.fa-layer-group
+              p Phân quyền
+        if(role.permissions.includes("accounts_view"))
+          li.nav-item
+            a(href= `${prefixAdmin}/accounts`)
+              i.fas.fa-layer-group
+              p Tài khoản

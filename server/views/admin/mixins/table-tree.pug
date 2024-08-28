@@ -13,18 +13,19 @@ mixin table-tree(items, level = 1)
                 img(src=`${item.thumbnail}`, style="width: 100px")
             td #{prefix}#{item.title}
             td
-                if item.status == "active"
-                    button.badge.badge-success(
-                        data-id=item.id
-                        data-status=item.status
-                        button-change-status
-                    ) Hoạt động
-                else
-                    button.badge.badge-danger(
-                        data-id=item.id
-                        data-status=item.status
-                        button-change-status
-                    ) Dừng hoạt động
+                if(role.permissions.includes("posts-category_edit"))
+                    if item.status == "active"
+                        button.badge.badge-success(
+                            data-id=item.id
+                            data-status=item.status
+                            button-change-status
+                        ) Hoạt động
+                    else
+                        button.badge.badge-danger(
+                            data-id=item.id
+                            data-status=item.status
+                            button-change-status
+                        ) Dừng hoạt động
             td
                 input(
                     type="number"
@@ -35,21 +36,23 @@ mixin table-tree(items, level = 1)
                 )
             td
                 .form-button-action
-                    a.btn.btn-link.btn-primary.btn-lg(
-                        type='button'
-                        href=`${prefixAdmin}/posts-category/edit/${item.id}`
-                        data-bs-toggle='tooltip'
-                        title=''
-                        data-original-title='Edit Task'
-                    )
-                        i.fa.fa-edit
-                    a.btn.btn-link.btn-danger(
-                        type='button'
-                        data-bs-toggle='tooltip'
-                        data-id=item.id
-                        button-delete
-                    )
-                        i.fa.fa-times
+                    if(role.permissions.includes("posts-category_edit"))
+                        a.btn.btn-link.btn-primary.btn-lg(
+                            type='button'
+                            href=`${prefixAdmin}/posts-category/edit/${item.id}`
+                            data-bs-toggle='tooltip'
+                            title=''
+                            data-original-title='Edit Task'
+                        )
+                            i.fa.fa-edit
+                    if(role.permissions.includes("posts-category_delete"))
+                        a.btn.btn-link.btn-danger(
+                            type='button'
+                            data-bs-toggle='tooltip'
+                            data-id=item.id
+                            button-delete
+                        )
+                            i.fa.fa-times
                     a.btn.btn-link.btn-primary.btn-lg(
                         type='button'
                         href=`${prefixAdmin}/posts-category/detail/${item.id}`

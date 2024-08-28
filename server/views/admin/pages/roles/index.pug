@@ -6,98 +6,97 @@ include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
 block main
-    +alert-success("5000")
-    .page-inner
-        .page-header
-            h3.fw-bold.mb-3 Nhóm quyền
-            ul.breadcrumbs.mb-3
-                li.nav-home
-                    a(href='#')
-                        i.icon-home
-                li.separator
-                    i.icon-arrow-right
-                li.nav-item
-                    a(href='#') Tables
-                li.separator
-                    i.icon-arrow-right
-                li.nav-item
-                    a(href='#') Basic Tables
-        .row
-            .col-md-12
-                .card
-                    .card-header
-                        .card-head-row.card-tools-still-right
-                            nav.navbar.navbar-header-left.navbar-expand-lg.navbar-form.nav-search.p-0.d-none.d-lg-flex
-                            .card-tools
-                                .dropdown
-                                    | Bộ lọc
-                                    button#dropdownMenuButton.btn.btn-icon.btn-clean.me-0(type='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                                        i.fas.fa-ellipsis-h
-                                    .dropdown-menu(aria-labelledby='dropdownMenuButton')
-                                        //Mixins bộ lọc
-                                        //+filter-status(filterStatus)
+    if(role.permissions.includes("roles_view"))
+        +alert-success(5000)
+        +alert-error(5000)
+        .page-inner
+            .page-header
+                h3.fw-bold.mb-3 Nhóm quyền
+                ul.breadcrumbs.mb-3
+                    li.nav-home
+                        a(href='#')
+                            i.icon-home
+                    li.separator
+                        i.icon-arrow-right
+                    li.nav-item
+                        a(href='#') Tables
+                    li.separator
+                        i.icon-arrow-right
+                    li.nav-item
+                        a(href='#') Basic Tables
+            .row
+                .col-md-12
+                    .card
+                        .card-header
+                            .card-head-row.card-tools-still-right
+                                nav.navbar.navbar-header-left.navbar-expand-lg.navbar-form.nav-search.p-0.d-none.d-lg-flex
+                                .card-tools
+                                    .dropdown
+                                        | Bộ lọc
+                                        button#dropdownMenuButton.btn.btn-icon.btn-clean.me-0(type='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                                            i.fas.fa-ellipsis-h
+                                        .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                                            //Mixins bộ lọc
+                                            //+filter-status(filterStatus)
 
 
 
-                    .card-body
-                        .row.align-items-center
-                            .col-2
-                                a(
-                                    href=`${prefixAdmin}/roles/create`
-                                    class="btn btn-outline-success"
-                                ) + Thêm mới
-                        .d-flex.align-items-center
-                            .col-2
+                        .card-body
+                            .row.align-items-center
+                                .col-2
+                                    if(role.permissions.includes("roles_create"))
+                                        a(
+                                            href=`${prefixAdmin}/roles/create`
+                                            class="btn btn-outline-success"
+                                        ) + Thêm mới
+                            .d-flex.align-items-center
+                                .col-2
 
 
-                        table(
-                            class="table mt-3"
-                            )
-                            thead
-                                tr
-                                    th(scope='col') STT
-                                    th(scope='col') Tiêu đề
-                                    th(scope='col') Mô tả
-                                    th(scope='col') Hành động
-                            tbody
-                                each item, index in records
+                            table(
+                                class="table mt-3"
+                                )
+                                thead
                                     tr
-                                        td #{index +1 }
-                                        td #{item.title}
-                                        td #{item.description}
-                                        td
-                                            .form-button-action
-                                                a.btn.btn-link.btn-primary.btn-lg(
-                                                    type='button'
-                                                    href=`${prefixAdmin}/roles/edit/${item.id}`
-                                                    data-bs-toggle='tooltip'
-                                                    title=''
-                                                    data-original-title='Edit Task')
-                                                    i.fa.fa-edit
-                                                a.btn.btn-link.btn-danger(
+                                        th(scope='col') STT
+                                        th(scope='col') Tiêu đề
+                                        th(scope='col') Mô tả
+                                        th(scope='col') Hành động
+                                tbody
+                                    each item, index in records
+                                        tr
+                                            td #{index +1 }
+                                            td #{item.title}
+                                            td #{item.description}
+                                            td
+                                                .form-button-action
+                                                    if(role.permissions.includes("roles_edit"))
+                                                        a.btn.btn-link.btn-primary.btn-lg(
+                                                            type='button'
+                                                            href=`${prefixAdmin}/roles/edit/${item.id}`
+                                                            data-bs-toggle='tooltip'
+                                                            title=''
+                                                            data-original-title='Edit Task')
+                                                            i.fa.fa-edit
+                                                    if(role.permissions.includes("roles_delete"))
+                                                        a.btn.btn-link.btn-danger(
 
-                                                    type='button'
-                                                    data-bs-toggle='tooltip'
-                                                    data-id = item.id
-                                                    button-delete
-                                                    )
-                                                    i.fa.fa-times
-                                                a.btn.btn-link.btn-primary.btn-lg(
-                                                    type='button'
-                                                    href=`${prefixAdmin}/roles/detail/${item.id}`
-                                                    data-bs-toggle='tooltip'
-                                                    )
-                                                    i.fa.fa-info
-
-
-
-
-
-
-                    form(
-                        action=""
-                        method="POST"
-                        id="form-delete-item"
-                        data-path=`${prefixAdmin}/roles/delete`
-                    )
-                    script(src=`${prefixAdmin}/assets/js/movies.js`)
+                                                            type='button'
+                                                            data-bs-toggle='tooltip'
+                                                            data-id = item.id
+                                                            button-delete
+                                                            )
+                                                            i.fa.fa-times
+                                                    a.btn.btn-link.btn-primary.btn-lg(
+                                                        type='button'
+                                                        href=`${prefixAdmin}/roles/detail/${item.id}`
+                                                        data-bs-toggle='tooltip'
+                                                        )
+                                                        i.fa.fa-info
+                        form(
+                            action=""
+                            method="POST"
+                            id="form-delete-item"
+                            data-path=`${prefixAdmin}/roles/delete`
+                        )
+                        script(src=`${prefixAdmin}/assets/js/movies.js`)

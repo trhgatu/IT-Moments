@@ -2,60 +2,61 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 
 block main
-    +alert-error(5000)
-    +alert-success(5000)
-    .page-inner
-        .page-header
-            h3.fw-bold.mb-3 Forms
-            ul.breadcrumbs.mb-3
-                li.nav-home
-                    a(href='#')
-                        i.icon-home
-                li.separator
-                         i.icon-arrow-right
-                li.nav-item
-                    a(href='#') Forms
-                li.separator
-                        i.icon-arrow-right
-                li.nav-item
-                    a(href='#') Basic Form
-        .row
-            .col-md-12
-                .card
-                    .card-header
-                        .card-title Thêm nhóm quyền
-                    .card-body
-                        .row
-                            .col-md-10.col-lg-8
-                                form(
-                                    action = `${prefixAdmin}/roles/edit/${data.id}?_method=PATCH`
-                                    method="POST"
-                                )
-                                    div(class="form-group")
-                                        label(for='title') Tiêu đề
-                                        input(
-                                            type="text"
-                                            class="form-control"
-                                            id="title"
-                                            name="title"
-                                            required
-                                            value=data.title
-                                        )
+    if(role.permissions.includes("roles_edit"))
+        +alert-error(5000)
+        +alert-success(5000)
+        .page-inner
+            .page-header
+                h3.fw-bold.mb-3 Forms
+                ul.breadcrumbs.mb-3
+                    li.nav-home
+                        a(href='#')
+                            i.icon-home
+                    li.separator
+                            i.icon-arrow-right
+                    li.nav-item
+                        a(href='#') Forms
+                    li.separator
+                            i.icon-arrow-right
+                    li.nav-item
+                        a(href='#') Basic Form
+            .row
+                .col-md-12
+                    .card
+                        .card-header
+                            .card-title Thêm nhóm quyền
+                        .card-body
+                            .row
+                                .col-md-10.col-lg-8
+                                    form(
+                                        action = `${prefixAdmin}/roles/edit/${data.id}?_method=PATCH`
+                                        method="POST"
+                                    )
+                                        div(class="form-group")
+                                            label(for='title') Tiêu đề
+                                            input(
+                                                type="text"
+                                                class="form-control"
+                                                id="title"
+                                                name="title"
+                                                required
+                                                value=data.title
+                                            )
 
-                                    div(class="form-group")
-                                        label(for='desc') Mô tả
-                                        textarea(
-                                            class="form-control"
-                                            id="desc"
-                                            name="description"
-                                            rows="5"
-                                        ) #{data.description}
+                                        div(class="form-group")
+                                            label(for='desc') Mô tả
+                                            textarea(
+                                                class="form-control"
+                                                id="desc"
+                                                name="description"
+                                                rows="5"
+                                            ) #{data.description}
 
-                                    div(class="form-group")
-                                        button(
-                                            type="submit"
-                                            class="btn btn-primary"
-                                        ) Cập nhật
+                                        div(class="form-group")
+                                            button(
+                                                type="submit"
+                                                class="btn btn-primary"
+                                            ) Cập nhật
 
 
 
