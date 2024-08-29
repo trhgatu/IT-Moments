@@ -56,12 +56,12 @@ module.exports.index = async (req, res) => {
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skip);
 
-    for (const post of posts){
+    for(const post of posts) {
         const user = await Account.findOne({
             _id: post.createdBy.account_id
         });
 
-        if(user){
+        if(user) {
             post.accountFullName = user.fullName;
         }
     }
@@ -96,7 +96,7 @@ module.exports.createPost = async (req, res) => {
         req.body.position = parseInt(req.body.position);
     }
     req.body.createdBy = {
-        account_id : res.locals.user.id
+        account_id: res.locals.user.id
     };
 
     try {
@@ -204,7 +204,11 @@ module.exports.changeMulti = async (req, res) => {
                 },
                 {
                     deleted: true,
-                    deletedAt: new Date(),
+                    /* deletedAt: new Date(), */
+                    deletedBy: {
+                        account_id: res.locals.user.id,
+                        deletedAt: new Date(),
+                    }
                 }
             );
             req.flash('success', `Xóa ${ids.length} bài viết thành công!`);
@@ -225,7 +229,6 @@ module.exports.changeMulti = async (req, res) => {
     }
     res.redirect('back')
 }
-
 /* [DELETE] /admin/movies/delete/:id */
 module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
@@ -233,7 +236,11 @@ module.exports.deleteItem = async (req, res) => {
         { _id: id },
         {
             deleted: true,
-            deletedAt: new Date(),
+            /* deletedAt: new Date(), */
+            deletedBy: {
+                account_id: res.locals.user.id,
+                deletedAt: new Date(),
+            }
         }
     );
     req.flash('success', `Xóa bài viết thành công!`);

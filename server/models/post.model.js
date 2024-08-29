@@ -34,10 +34,7 @@ const postSchema = new mongoose.Schema({
     },
     deletedBy :{
         account_id: String,
-        deletedAt: {
-            type: Date,
-            default: Date.now
-        }
+        deletedAt: Date
     },
 
 },{
