@@ -4,7 +4,7 @@ const slug = require("mongoose-slug-updater");
 mongoose.plugin(slug);
 
 const postSchema = new mongoose.Schema({
-    title : String,
+    title: String,
     post_category_id: {
         type: String,
         default: ""
@@ -16,12 +16,12 @@ const postSchema = new mongoose.Schema({
     position: Number,
     images: [String],
 
-    slug:{
+    slug: {
         type: String,
         slug: "title",
         unique: true
     },
-    createdBy :{
+    createdBy: {
         account_id: String,
         createdAt: {
             type: Date,
@@ -32,12 +32,18 @@ const postSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    deletedBy :{
+    deletedBy: {
         account_id: String,
         deletedAt: Date
     },
-
-},{
+    updatedBy: [
+        {
+            account_id: String,
+            updatedAt: Date
+        }
+    ],
+},
+{
     timestamps: true,
 });
 const Post = mongoose.model('Post', postSchema, 'posts');

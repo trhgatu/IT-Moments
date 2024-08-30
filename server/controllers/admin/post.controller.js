@@ -57,6 +57,7 @@ module.exports.index = async (req, res) => {
         .skip(objectPagination.skip);
 
     for(const post of posts) {
+        //Lấy ra thông tin người tạo
         const user = await Account.findOne({
             _id: post.createdBy.account_id
         });
@@ -64,6 +65,9 @@ module.exports.index = async (req, res) => {
         if(user) {
             post.accountFullName = user.fullName;
         }
+        //Lấy ra thông tin người cập nhật gần nhất
+        console.log(post.updatedBy[post.updatedBy.length - 1])
+
     }
 
     res.render('admin/pages/posts/index', {
@@ -151,16 +155,25 @@ module.exports.edit = async (req, res) => {
 }
 /* [PATCH] /admin/posts/edit */
 module.exports.editPatch = async (req, res) => {
+
+
     const id = req.params.id;
     req.body.position = parseInt(req.body.position);
     console.log(req.body);
     try {
+        const updatedBy = {
+            account_id: res.locals.user.id,
+            updatedAt: new Date()
+        }
         await Post.updateOne(
             {
                 _id: id,
             },
-            req.body
-        )
+            {
+                ...req.body,
+                $push: { updatedBy: updatedBy }
+            }
+        );
         req.flash('success', `Cập nhật thành công!`)
     } catch(error) {
         req.flash('error', `Cập nhật thất bại!`)
@@ -172,7 +185,15 @@ module.exports.changeStatus = async (req, res) => {
     const status = req.params.status;
     const id = req.params.id;
 
-    await Post.updateOne({ _id: id }, { status: status });
+    const updatedBy = {
+        account_id: res.locals.user.id,
+        updatedAt: new Date()
+    }
+
+    await Post.updateOne({ _id: id }, {
+        status: status,
+        $push: { updatedBy: updatedBy }
+    });
 
     req.flash('success', 'Cập nhật trạng thái thành công!');
     res.redirect('back');
@@ -182,16 +203,27 @@ module.exports.changeMulti = async (req, res) => {
     const type = req.body.type;
     const ids = req.body.ids.split(', ');
 
+    const updatedBy = {
+        account_id: res.locals.user.id,
+        updatedAt: new Date()
+    }
+
     switch(type) {
         case 'active':
-            await Post.updateMany({ _id: { $in: ids } }, { status: 'active' });
+            await Post.updateMany({ _id: { $in: ids } }, {
+                status: 'active',
+                $push: { updatedBy: updatedBy }
+            });
             req.flash(
                 'success',
                 `Cập nhật trạng thái của ${ids.length} bài viết thành công!`
             )
             break;
         case 'inactive':
-            await Post.updateMany({ _id: { $in: ids } }, { status: 'inactive' });
+            await Post.updateMany({ _id: { $in: ids } }, {
+                status: 'inactive',
+                $push: { updatedBy: updatedBy }
+            });
             req.flash(
                 'success',
                 `Cập nhật trạng thái của ${ids.length} bài viết thành công!`
@@ -217,7 +249,10 @@ module.exports.changeMulti = async (req, res) => {
             for(const item of ids) {
                 let [id, position] = item.split('-');
                 position = parseInt(position);
-                await Post.updateOne({ _id: id }, { position: position });
+                await Post.updateOne({ _id: id }, {
+                    position: position,
+                    $push: { updatedBy: updatedBy }
+                });
             }
             req.flash(
                 'success',
