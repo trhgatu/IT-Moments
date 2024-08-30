@@ -1,15 +1,29 @@
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { publicRoutes } from '~/routes'
+import { DefaultLayout } from "~/components/Layout";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello World</h1>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          {publicRoutes.map((route, index) => {
+            const Layout = route.layout || DefaultLayout;
+            const Page = route.component;
+            return <Route
+              key={index}
+              path={route.path}
+              element={
+                <Layout>
+                  <Page />
+                </Layout>
+              }
+              />
+          })}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
