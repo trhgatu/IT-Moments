@@ -66,7 +66,16 @@ module.exports.index = async (req, res) => {
             post.accountFullName = user.fullName;
         }
         //Lấy ra thông tin người cập nhật gần nhất
-        console.log(post.updatedBy[post.updatedBy.length - 1])
+        const updatedBy = post.updatedBy.slice(-1)[0];
+        if(updatedBy) {
+            const userUpdated = await Account.findOne({
+                _id: updatedBy.account_id
+            });
+
+            updatedBy.accountFullName = userUpdated.fullName;
+        }
+        console.log(post)
+
 
     }
 

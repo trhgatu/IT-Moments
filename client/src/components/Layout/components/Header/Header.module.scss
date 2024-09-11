@@ -1,0 +1,40 @@
+.wrapper{
+    height: var(--default-layout-header-height);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.inner{
+    height: 100%;
+    width: 100%;
+}
+.logo {
+    display: flex;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    background-color: #fff;
+    align-items: center;
+}
+
+.logo_text{
+    font-family: "Kranky", serif;
+    font-weight: 400;
+    font-size: 30px;
+}
+.navbar {
+    height: 70px;
+
+    .list{
+        display: flex;
+        justify-content: center;
+
+    }
+    .item{
+        list-style: none;
+        padding: 0 20px;
+    }
+    .link{
+        text-decoration: none;
+    }
+}

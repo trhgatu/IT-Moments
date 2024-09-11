@@ -75,6 +75,7 @@ block main
                                         th(scope='col') T.Thái
                                         th(scope='col') Vị trí
                                         th(scope='col') Người tạo
+                                        th(scope='col') Người cập nhật
                                         th(scope='col') Hành động
                                 tbody
                                     each item, index in posts
@@ -118,6 +119,11 @@ block main
                                             td
                                                 p #{item.accountFullName}
                                                 +formatDateTime(item.createdBy.createdAt)
+                                            td
+                                                - const updatedBy = item.updatedBy.slice(-1)[0];
+                                                if(updatedBy)
+                                                    p #{updatedBy.accountFullName}
+                                                    +formatDateTime(updatedBy.updatedAt)
                                             td
                                                 .form-button-action
                                                     if(role.permissions.includes("posts_edit"))
