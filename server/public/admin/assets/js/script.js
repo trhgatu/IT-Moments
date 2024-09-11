@@ -16,6 +16,31 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
     /* Button Status End*/
+    // Upload Avatar
+    const uploadAvatar = document.querySelector("[upload-avatar]");
+    if(uploadAvatar) {
+        const uploadAvatarInput = document.querySelector("[upload-avatar-input]");
+        const uploadAvatarPreview = document.querySelector("#avatar-preview"); // Đã sửa từ [upload-avatar-preview] thành #avatar-preview
+
+        // Kiểm tra và ẩn khu vực xem trước nếu không có ảnh avatar
+        if(!uploadAvatarPreview.src || uploadAvatarPreview.src.trim() === "") {
+            uploadAvatarPreview.classList.add('hidden');
+        } else {
+            uploadAvatarPreview.classList.remove('hidden');
+        }
+
+        // Xử lý khi người dùng chọn ảnh mới
+        uploadAvatarInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if(file) {
+                uploadAvatarPreview.src = URL.createObjectURL(file);
+                uploadAvatarPreview.classList.remove('hidden');
+            }
+        });
+    }
+    // End Upload Avatar
+
+
 
     //Upload Thumbnail
     const uploadThumbnail = document.querySelector("[upload-thumbnail]");
@@ -38,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //End Upload Thumbnail
 
     const uploadImages = document.querySelector("[upload-images]");
-    if (uploadImages) {
+    if(uploadImages) {
         const uploadImagesInput = document.querySelector("[upload-images-input]");
         const uploadImagesPreview = document.querySelector(".upload-images-preview"); // Chỉnh sửa selector
 
@@ -50,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         uploadImagesInput.addEventListener("change", (e) => {
             const files = e.target.files;
-            if (files.length > 0) {
+            if(files.length > 0) {
                 // Xóa các ảnh hiện tại trong khu vực xem trước
                 uploadImagesPreview.innerHTML = '';
 
@@ -65,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Nếu không có ảnh ban đầu, ẩn khu vực xem trước
-        if (uploadImagesPreview.children.length === 0) {
+        if(uploadImagesPreview.children.length === 0) {
             uploadImagesPreview.classList.add('hidden');
         } else {
             uploadImagesPreview.classList.remove('hidden');
@@ -74,17 +99,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Upload Video
     const uploadVideo = document.querySelector("[upload-video]");
-    if (uploadVideo) {
+    if(uploadVideo) {
         const uploadVideoInput = document.querySelector("[upload-video-input]");
         const uploadVideoPreview = document.querySelector("[upload-video-preview]");
 
-        if(!uploadVideoPreview.src || uploadVideoPreview.src.trim() === ""){
+        if(!uploadVideoPreview.src || uploadVideoPreview.src.trim() === "") {
             uploadVideoPreview.classList.add('hidden');
         }
 
         uploadVideoInput.addEventListener("change", (e) => {
             const file = e.target.files[0];
-            if (file) {
+            if(file) {
                 uploadVideoPreview.src = URL.createObjectURL(file);
                 uploadVideoPreview.classList.remove('hidden');
 
@@ -92,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-//End video-preview
+    //End video-preview
 
     //Show alert
     const showAlert = document.querySelector("[show-alert]");

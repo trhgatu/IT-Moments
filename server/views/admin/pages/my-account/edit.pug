@@ -1,0 +1,53 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main
+    h1(class="mb-4 text-center") Chỉnh sửa thông tin cá nhân
+    +alert-success(5000)
+    +alert-error(5000)
+
+    if user
+        .container.mt-4
+            .row.justify-content-center
+                .col-md-8
+                    .card
+                        .card-header.bg-primary.text-white
+                            h4 Chỉnh sửa thông tin của #{user.fullName}
+                        .card-body
+                            form(action=`${prefixAdmin}/my-account/edit?_method=PATCH` method="POST" enctype="multipart/form-data")
+                                .form-group
+                                    label(for="fullName") Họ tên *
+                                    input.form-control(type="text" id="fullName" name="fullName" value=`${user.fullName}` required)
+
+                                .form-group.mt-3
+                                    label(for="email") Email *
+                                    input.form-control(type="email" id="email" name="email" value=`${user.email}` required)
+
+                                .form-group.mt-3
+                                    label(for="phone") Số điện thoại
+                                    input.form-control(type="text" id="phone" name="phone" value=`${user.phone || ''}`)
+
+                                div(class="form-group" upload-avatar)
+                                    label(for='avatar') Avatar
+                                    .br
+                                    input(
+                                        type="file"
+                                        class="form-control-file"
+                                        id="avatar"
+                                        name="avatar"
+                                        accept="image/*"
+                                        upload-avatar-input
+                                    )
+                                    img(
+                                        src=user.avatar
+                                        class="image-preview"
+                                        id="avatar-preview"
+                                        style="display: block; max-width: 100%; height: auto;"
+                                        upload-avatar-preview
+                                    )
+
+
+                                .form-group.mt-4.text-center
+                                    button.btn.btn-primary(type="submit") Lưu thay đổi
+    else
+        .container
+            .alert.alert-danger.text-center Không tìm thấy thông tin người dùng.

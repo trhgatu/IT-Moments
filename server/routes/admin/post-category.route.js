@@ -10,7 +10,8 @@ const validate = require('../../validates/admin/post-category.validate');
 router.get('/', controller.index);
 router.get('/create', controller.create);
 router.post('/create',
-    upload.single('thumbnail'),
+    upload.fields([
+        { name: 'thumbnail', maxCount: 1 },]),
     uploadCloud.upload,
     validate.createPost,
     controller.createPost

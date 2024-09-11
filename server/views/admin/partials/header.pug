@@ -154,23 +154,22 @@
         li.nav-item.topbar-user.dropdown.hidden-caret
           a.dropdown-toggle.profile-pic(data-bs-toggle='dropdown' href='#' aria-expanded='false')
             .avatar-sm
-              img.avatar-img.rounded-circle(src=`${prefixAdmin}/assets/img/profile.jpg` alt='...')
+              img.avatar-img.rounded-circle(src=`${user.avatar}` alt='...')
             span.profile-username
               span.op-7 Hi,
-              span.fw-bold Hizrian
+              span.fw-bold #{user.fullName}
           ul.dropdown-menu.dropdown-user.animated.fadeIn
             .dropdown-user-scroll.scrollbar-outer
               li
                 .user-box
                   .avatar-lg
-                    img.avatar-img.rounded(src=`${prefixAdmin}/assets/img/profile.jpg` alt='image profile')
+                    img.avatar-img.rounded(src=`${user.avatar}` alt='image profile')
                   .u-text
-                    h4 Hizrian
-                    p.text-muted hello@example.com
-                    a.btn.btn-xs.btn-secondary.btn-sm(href='profile.html') View Profile
+                    h4 #{user.fullName}
+                    p.text-muted #{user.email}
+                    a.btn.btn-xs.btn-secondary.btn-sm(href=`${prefixAdmin}/my-account`) Xem Profile
               li
                 .dropdown-divider
-                a.dropdown-item(href='#') My Profile
                 a.dropdown-item(href='#') Inbox
                 .dropdown-divider
                 a.dropdown-item(href='#') Cài đặt tài khoản

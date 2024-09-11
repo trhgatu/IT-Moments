@@ -1,0 +1,40 @@
+extends ../../layouts/default.pug
+
+block main
+    h1(class="mb-4 text-center") Thông tin cá nhân
+
+    if user
+        .container.mt-4
+            .row.justify-content-center
+                .col-md-8
+                    .card
+                        .card-header.bg-primary.text-white
+                            h4 Thông tin người dùng
+                        .card-body
+                            dl.row
+                                dt.col-sm-4 Họ tên:
+                                dd.col-sm-8 #{user.fullName}
+
+                                dt.col-sm-4 Email:
+                                dd.col-sm-8 #{user.email}
+
+                                dt.col-sm-4 Số điện thoại:
+                                dd.col-sm-8 #{user.phone || 'Chưa cập nhật'}
+
+                                dt.col-sm-4 Trạng thái:
+                                dd.col-sm-8 #{user.status ? 'Hoạt động' : 'Đã khóa'}
+
+                            if role
+                                dl.row.mt-3
+                                    dt.col-sm-4 Quyền:
+                                    dd.col-sm-8 #{role.title}
+                            else
+                                .alert.alert-warning.mt-3 Chưa có thông tin quyền hạn.
+
+                        // Thêm nút Chỉnh sửa
+                        .card-footer.text-center
+                            a.btn.btn-warning(href=`${prefixAdmin}/my-account/edit`) Chỉnh sửa thông tin cá nhân
+
+    else
+        .container
+            .alert.alert-danger.text-center Chưa có thông tin người dùng.

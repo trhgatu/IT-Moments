@@ -70,5 +70,21 @@ module.exports.upload = async (req, res, next) => {
     } else {
         console.log('Không tìm thấy video để tải lên');
     }
+
+    // Xử lý avatar
+    if(req.files && req.files['avatar'] && req.files['avatar'][0]) {
+        const avatar = req.files['avatar'][0];
+        try {
+            const result = await uploadToCloudinary(avatar);
+            req.body.avatar = result.secure_url;
+            console.log('Tải lên avatar thành công:', result.secure_url);
+        } catch(error) {
+            console.error('Lỗi tải lên avatar:', error);
+            return next(error);
+        }
+    } else {
+        console.log('Không tìm thấy avatar để tải lên');
+    }
+
     next();
 };

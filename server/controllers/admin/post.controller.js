@@ -164,11 +164,8 @@ module.exports.edit = async (req, res) => {
 }
 /* [PATCH] /admin/posts/edit */
 module.exports.editPatch = async (req, res) => {
-
-
     const id = req.params.id;
     req.body.position = parseInt(req.body.position);
-    console.log(req.body);
     try {
         const updatedBy = {
             account_id: res.locals.user.id,
