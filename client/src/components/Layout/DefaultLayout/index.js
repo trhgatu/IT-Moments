@@ -1,11 +1,11 @@
+// DefaultLayout.js
 import Header from '~/components/Layout/components/Header';
-import Slider from './Slider';
 import Footer from '~/components/Layout/components/Footer';
-
-import styles from './DefaultLayout.module.scss'
+import Slider from '~/components/Layout/components/Slider';
+import styles from './DefaultLayout.module.scss';
 import classNames from 'classnames/bind';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
     return (
@@ -16,8 +16,8 @@ function DefaultLayout({ children }) {
                 <div className={cx('content')}>
                     {children}
                 </div>
-                <Footer />
             </div>
+            {/* <Footer /> */}
         </div>
     );
 }

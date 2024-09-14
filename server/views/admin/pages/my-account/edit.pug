@@ -17,7 +17,9 @@ block main
                                 .form-group
                                     label(for="fullName") Họ tên *
                                     input.form-control(type="text" id="fullName" name="fullName" value=`${user.fullName}` required)
-
+                                .form-group
+                                    label(for="password") Mật khẩu *
+                                    input.form-control(type="password" id="password" name="password" value=`${user.password}` required)
                                 .form-group.mt-3
                                     label(for="email") Email *
                                     input.form-control(type="email" id="email" name="email" value=`${user.email}` required)
