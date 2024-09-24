@@ -70,21 +70,4 @@
     font-family: 'Rowdies', sans-serif;
     font-weight: 300;
     font-style: normal;
-    transform: translateX(-100%);
-    animation: slideIn 1.5s forwards;
-    will-change: transform, opacity;
-}
-
-.swiper-slide-active .slide-title {
-    transform: translateX(0);
-    opacity: 1;
-}
-
-@keyframes slideIn {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(0);
-    }
 }

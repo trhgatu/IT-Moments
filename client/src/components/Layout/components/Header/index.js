@@ -10,12 +10,16 @@ const cx = classNames.bind(styles);
 function Header() {
     const [activeIndex, setActiveIndex] = useState(0);
     const [showSearch, setShowSearch] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false); // Trạng thái để kiểm tra cuộn
+    const [isScrolled, setIsScrolled] = useState(false);
 
-    const searchRef = useRef(null);
+    const searchButtonRef = useRef(null);
+    const searchContainerRef = useRef(null);
 
     const handleClickOutside = (event) => {
-        if(searchRef.current && !searchRef.current.contains(event.target)) {
+        if (
+            searchButtonRef.current && !searchButtonRef.current.contains(event.target) &&
+            searchContainerRef.current && !searchContainerRef.current.contains(event.target)
+        ) {
             setShowSearch(false);
         }
     };
@@ -28,10 +32,10 @@ function Header() {
     // Thêm sự kiện cuộn
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setIsScrolled(true); // Khi cuộn qua 50px
+            if(window.scrollY > 50) {
+                setIsScrolled(true);
             } else {
-                setIsScrolled(false); // Khi về đầu trang
+                setIsScrolled(false);
             }
         };
 
@@ -49,9 +53,12 @@ function Header() {
     const handleClick = (index) => {
         setActiveIndex(index);
     };
+    const handleInputClick = (event) => {
+        event.stopPropagation();
+    };
 
     return (
-        <header className={cx('wrapper', { scrolled: isScrolled })}> {/* Thêm class 'scrolled' */}
+        <header className={cx('wrapper', { scrolled: isScrolled })}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
                     <a href="#">
@@ -73,7 +80,7 @@ function Header() {
                         ))}
                     </ul>
                     <div className={cx('actions-wrapper')}>
-                        <div className={cx('actions')} ref={searchRef}>
+                        <div className={cx('actions')} ref={searchButtonRef}>
                             <button className={cx('search')} onClick={handleSearchClick}>
                                 <IoSearch />
                             </button>
@@ -84,8 +91,8 @@ function Header() {
                                 <CgProfile />
                             </button>
                         </div>
-                        <div className={cx('search-container', { show: showSearch })}>
-                            <input type="text" className={cx('search-input')} placeholder="Tìm kiếm..." />
+                        <div className={cx('search-container', { show: showSearch })} ref={searchContainerRef}>
+                            <input type="text" className={cx('search-input')} placeholder="Tìm kiếm..." onClick={handleInputClick} />
                         </div>
                     </div>
                 </div>

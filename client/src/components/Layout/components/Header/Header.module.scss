@@ -15,11 +15,13 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
         .logo_text, .navbar .link {
-            color: black; // Đổi màu chữ khi cuộn
+            color: black;
+
         }
 
         .navbar .link.active {
-            color: #007bff; // Màu xanh cho link active
+            color: #007bff;
+            font-weight: bold;
         }
     }
 }
